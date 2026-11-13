@@ -3,378 +3,390 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CASE 006｜消失的鑰匙</title>
+<title>CASE 006｜消失的鑰匙・自主闖關版</title>
 <style>
-:root{--bg:#080d14;--panel:#141d28;--panel2:#1b2735;--line:#344253;--gold:#f3c77a;--gold-d:#c9a052;--text:#ecebe4;--muted:#a3b0bd;--red:#e88a7d;--green:#9fd3b2;--blue:#8fb7e0}
-*{box-sizing:border-box}
-html,body{margin:0}
-body{background:radial-gradient(ellipse at 75% 0%,#253047 0%,#080d14 65%);color:var(--text);font-family:system-ui,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;min-height:100vh;font-size:19px;line-height:1.7}
+:root{--bg:#080d14;--line:#344253;--gold:#f3c77a;--gold-d:#c9a052;--text:#ecebe4;--muted:#a3b0bd;--red:#e88a7d;--green:#9fd3b2;--blue:#8fb7e0}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:radial-gradient(ellipse at 75% 0%,#253047 0%,#080d14 65%);color:var(--text);font-family:system-ui,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;min-height:100vh;font-size:18px;line-height:1.7}
 body:before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent 0 47px,#ffffff05 48px),repeating-linear-gradient(90deg,transparent 0 47px,#ffffff05 48px);pointer-events:none}
-button{font-family:inherit;font-size:inherit;cursor:pointer}
-.wrap{max-width:1180px;margin:auto;padding:18px 20px 90px;position:relative}
-header{display:flex;justify-content:space-between;gap:16px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:14px;flex-wrap:wrap}
-.tag{font-size:13px;letter-spacing:.3em;color:var(--gold)}
-.small{font-size:15px;color:var(--muted)}
-.clocks{display:flex;gap:18px;align-items:center}
-.clockbox{text-align:right}
-.story{font-family:ui-monospace,Consolas,monospace;font-size:30px;color:var(--gold);font-weight:700}
+button,textarea{font-family:inherit;font-size:inherit}button{cursor:pointer}
+.wrap{max-width:1100px;margin:auto;padding:16px 16px 40px;position:relative}
+header{display:flex;justify-content:space-between;gap:12px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px;flex-wrap:wrap}
+.tag{font-size:12px;letter-spacing:.3em;color:var(--gold)}
+.small{font-size:14px;color:var(--muted)}
+.clocks{display:flex;gap:16px;align-items:center}
+.story{font-family:ui-monospace,Consolas,monospace;font-size:26px;color:var(--gold);font-weight:700}
 .story.late{color:var(--red)}
-.real{font-family:ui-monospace,Consolas,monospace;font-size:20px;color:var(--muted)}
-.tbtn{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:6px 12px;font-size:15px}
-.progress{display:flex;gap:7px;margin:18px 0 6px}
-.progress span{flex:1;height:6px;background:#33404f;border-radius:4px}
-.progress .on{background:var(--gold)}
-.stages{display:flex;gap:7px;margin-bottom:16px}
-.stages span{flex:1;font-size:13px;color:var(--muted);text-align:center;letter-spacing:.05em}
-.stages .now{color:var(--gold)}
-.grid{display:grid;grid-template-columns:1.7fr 1fr;gap:18px}
-.panel{background:#111b27ee;border:1px solid var(--line);border-radius:14px;padding:26px;box-shadow:0 15px 45px #0005;animation:in .35s}
+.real{font-family:ui-monospace,Consolas,monospace;font-size:18px;color:var(--muted)}
+.progress{display:flex;gap:6px;margin:14px 0 4px}.progress span{flex:1;height:5px;background:#33404f;border-radius:4px}.progress .on{background:var(--gold)}
+.stages{display:flex;gap:6px;margin-bottom:14px}.stages span{flex:1;font-size:12px;color:var(--muted);text-align:center}.stages .now{color:var(--gold)}
+.grid{display:grid;grid-template-columns:1.75fr 1fr;gap:16px}
+.panel{background:#111b27ee;border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 15px 45px #0005;animation:in .35s}
 @keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.case{font-size:14px;color:var(--muted);letter-spacing:.18em}
-h1{font-size:clamp(38px,6vw,68px);line-height:1.15;margin:10px 0;letter-spacing:.04em}
-h2{font-size:clamp(26px,3vw,36px);margin:4px 0 14px;line-height:1.3}
-h3{color:var(--gold);margin:18px 0 8px;font-size:21px}
+.case{font-size:13px;color:var(--muted);letter-spacing:.18em}
+h1{font-size:clamp(34px,6vw,60px);line-height:1.15;margin:8px 0}
+h2{font-size:clamp(23px,3vw,32px);margin:4px 0 12px;line-height:1.35}
+h3{color:var(--gold);margin:16px 0 8px;font-size:19px}
 p{margin:8px 0}
-.clue{padding:14px 18px;margin:10px 0;border-left:4px solid var(--gold);background:#202c39;line-height:1.7}
-.clue.dim{border-color:#647789}
-.clue.new{border-color:var(--blue);background:#1d2b3d;animation:in .4s}
-.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.fact{background:#1a2532;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
-.fact b{color:var(--gold);margin-right:6px}
-.btn{background:#243143;border:1px solid #536273;color:var(--text);padding:12px 18px;border-radius:9px;transition:.2s}
-.btn:hover{background:#3a4a60}
-.btn.primary{background:var(--gold);color:#1b2029;border-color:var(--gold);font-weight:800}
-.btn.primary:hover{background:#ffe0a7}
+.clue{padding:12px 16px;margin:10px 0;border-left:4px solid var(--gold);background:#202c39}
+.clue.dim{border-color:#647789}.clue.new{border-color:var(--blue);background:#1d2b3d;animation:in .4s}
+.btn{background:#243143;border:1px solid #536273;color:var(--text);padding:11px 16px;border-radius:9px;transition:.2s}
+.btn:hover{background:#3a4a60}.btn.primary{background:var(--gold);color:#1b2029;border-color:var(--gold);font-weight:800}
 .btn:disabled{opacity:.4;cursor:not-allowed}
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}
-.places{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.place{text-align:left;background:#192431;border:1px solid #3e4e61;color:var(--text);border-radius:10px;padding:12px 14px;min-height:96px;position:relative;transition:.15s}
-.place:hover{border-color:var(--gold-d)}
-.place b{display:block;font-size:19px}
-.place .cost{font-size:14px;color:var(--muted)}
-.place .rank{position:absolute;top:8px;right:10px;width:34px;height:34px;border-radius:50%;background:var(--gold);color:#1b2029;font-weight:800;display:grid;place-items:center}
-.place.picked{border-color:var(--gold);background:#2a3342}
-.place.done{opacity:.4}
-.picklist{display:grid;gap:8px;margin-top:12px}
-.pick{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#1a2532;border:1px solid var(--line);border-radius:10px;padding:10px 14px}
-.pick .n{font-weight:800;color:var(--gold);width:26px}
-.chip{border:1px solid #536273;background:transparent;color:var(--muted);border-radius:999px;padding:3px 12px;font-size:15px}
-.chip.on{background:var(--gold);color:#1b2029;border-color:var(--gold);font-weight:700}
-.result{background:#1a2532;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:8px 0;animation:in .4s}
-.result b{color:var(--gold)}
-.result.found{border-color:var(--green);background:#1c3029}
-.result.found b{color:var(--green)}
-.msg{margin-top:12px;min-height:28px;font-weight:650;color:var(--red)}
-.msg.ok{color:var(--green)}
-.bag{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.evbag{background:#1a2532;border:1px dashed var(--gold-d);border-radius:10px;padding:14px;min-height:120px;color:var(--text);text-align:left}
-.evbag .lbl{font-size:14px;letter-spacing:.15em;color:var(--gold)}
-.evbag.open{border-style:solid;border-color:var(--blue);background:#1d2b3d;cursor:default}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
-.card{text-align:left;background:#192431;border:1px solid #3e4e61;color:var(--text);border-radius:10px;padding:12px 16px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0}
+.places{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.place{text-align:left;background:#192431;border:1px solid #3e4e61;color:var(--text);border-radius:10px;padding:11px 13px;min-height:82px;transition:.15s}
+.place:hover{border-color:var(--gold-d)}.place b{display:block}.place .cost{font-size:13px;color:var(--muted)}
+.place.done{opacity:.45}.place.key{border-color:var(--blue)}
+.result{background:#1a2532;border:1px solid var(--line);border-radius:10px;padding:11px 15px;margin:8px 0;animation:in .35s}
+.result b{color:var(--gold)}.result.found{border-color:var(--green);background:#1c3029}.result.found b{color:var(--green)}
+.msg{margin-top:10px;min-height:26px;font-weight:650;color:var(--red)}.msg.ok{color:var(--green)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:9px}
+.card{text-align:left;background:#192431;border:1px solid #3e4e61;color:var(--text);border-radius:10px;padding:11px 15px}
 .card .code{color:var(--gold);font-weight:800;margin-right:8px;font-family:ui-monospace,Consolas,monospace}
-.card.used{opacity:.3;pointer-events:none}
-.card.on{border-color:var(--gold);background:#2a3342}
-.card.shake{animation:shake .4s}
-@keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
-.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0}
-.tl{border:1px dashed #536273;border-radius:10px;padding:10px;min-height:96px;font-size:16px}
-.tl .n{color:var(--muted);font-size:13px;letter-spacing:.1em}
-.tl.fill{border-style:solid;border-color:var(--gold);background:#2a3342}
-.principles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
-.pr{border:1px dashed #536273;border-radius:10px;padding:10px 12px;text-align:center;color:var(--muted)}
-.pr.lit{border-style:solid;border-color:var(--green);color:var(--green);background:#1c3029}
-.pr b{display:block;font-size:18px}
-.lockcode{display:flex;gap:8px;justify-content:center;margin:14px 0}
-.lockcode div{width:60px;height:72px;border-radius:10px;background:#080f18;border:1px solid #66798b;display:grid;place-items:center;font-size:36px;font-weight:800;color:var(--gold);font-family:ui-monospace,Consolas,monospace}
-aside .panel{padding:20px}
-.log{max-height:260px;overflow:auto}
-.log p{font-size:15px;border-bottom:1px solid #304051;margin:0;padding:7px 0;color:#c9d2da}
-.evidence{display:flex;gap:7px;flex-wrap:wrap}
-.evidence span{font-size:14px;border:1px solid #44586c;padding:5px 10px;border-radius:5px;color:#bac8d6}
-.bottom{position:fixed;left:0;right:0;bottom:0;background:#080d14f2;border-top:1px solid var(--line);padding:10px 20px;z-index:6}
-.bottom .in{max-width:1180px;margin:0 auto;display:flex;gap:12px;align-items:center}
-.hintbox{flex:1;color:var(--gold);font-size:17px}
-/* overlay + surprise */
-.overlay{position:fixed;inset:0;background:#000b;z-index:30;display:none;align-items:center;justify-content:center;padding:14px}
-.overlay.show{display:flex}
-.obox{background:#111b27;border:1px solid var(--gold-d);border-radius:16px;padding:26px;width:min(820px,96vw);max-height:94vh;overflow:auto;position:relative}
-.door{width:200px;height:280px;margin:6px auto 0;position:relative;perspective:800px}
+.card.used{opacity:.3;pointer-events:none}.card.on{border-color:var(--gold);background:#2a3342}
+.shake{animation:shake .4s}@keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
+.testi{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.tcard{text-align:left;background:#192431;border:1px solid #3e4e61;color:var(--text);border-radius:10px;padding:12px 14px}
+.tcard .who{font-weight:800;color:var(--gold);display:block;margin-bottom:4px}
+.tcard.wrong{border-color:var(--red);background:#2a1f22}
+.timeline{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin:12px 0}
+.tl{border:1px dashed #536273;border-radius:10px;padding:8px;min-height:92px;font-size:15px}
+.tl .n{color:var(--muted);font-size:12px;letter-spacing:.1em}.tl.fill{border-style:solid;border-color:var(--gold);background:#2a3342}
+/* route */
+.route{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0 6px;position:relative}
+.pos{border:1px dashed #536273;border-radius:12px;min-height:130px;padding:10px;text-align:center;background:#121c28;color:var(--text);position:relative}
+.pos .pn{font-size:13px;color:var(--muted);letter-spacing:.08em}
+.pos .pd{font-size:14px;color:var(--muted)}
+.pos .fx{font-size:34px;margin-top:6px;line-height:1.2}
+.pos .fxn{font-size:15px;font-weight:700;color:var(--gold)}
+.pos.has{border-style:solid;border-color:var(--gold-d)}
+.pos.walk{box-shadow:0 0 0 3px var(--blue)}
+.arrowline{height:4px;background:linear-gradient(90deg,var(--gold),#536273);border-radius:2px;margin:4px 0 12px;position:relative}
+.arrowline:after{content:'';position:absolute;right:-2px;top:-6px;border-left:12px solid #536273;border-top:8px solid transparent;border-bottom:8px solid transparent}
+.fixes{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.fix{background:#192431;border:1px solid #3e4e61;border-radius:10px;padding:10px;text-align:center;color:var(--text)}
+.fix .e{font-size:30px;display:block}
+.fix.sel{border-color:var(--gold);box-shadow:0 0 0 3px #f3c77a44}
+.fix.placed{opacity:.4}
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rule{background:#1a2532;border:1px solid var(--line);border-radius:10px;padding:9px 13px;font-size:16px}
+.rule.ok{border-color:var(--green);color:var(--green)}.rule.bad{border-color:var(--red);color:var(--red)}
+.narr{background:#0c141d;border:1px solid var(--line);border-radius:10px;padding:12px 15px;font-family:ui-monospace,Consolas,monospace;font-size:15px;min-height:60px;white-space:pre-line}
+textarea{width:100%;min-height:96px;background:#080f18;color:var(--text);border:1px solid #66798b;border-radius:9px;padding:12px;resize:vertical}
+aside .panel{padding:18px}
+.board{display:grid;gap:6px}
+.ev{font-size:14px;border:1px solid #44586c;padding:7px 10px;border-radius:7px;color:#bac8d6}
+.ev.got{border-color:var(--gold);color:var(--text)}
+.ev b{color:var(--gold)}
+.log{max-height:200px;overflow:auto}.log p{font-size:14px;border-bottom:1px solid #304051;margin:0;padding:6px 0;color:#c9d2da}
+.hintrow{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.hintbox{flex:1;color:var(--gold);font-size:16px;min-width:200px}
+.overlay{position:fixed;inset:0;background:#000b;z-index:30;display:none;align-items:center;justify-content:center;padding:12px}.overlay.show{display:flex}
+.obox{background:#111b27;border:1px solid var(--gold-d);border-radius:16px;padding:24px;width:min(820px,96vw);max-height:94vh;overflow:auto;position:relative}
+.door{width:180px;height:250px;margin:6px auto 0;position:relative;perspective:800px}
 .door .light{position:absolute;inset:0;border-radius:10px 10px 2px 2px;background:radial-gradient(circle at 50% 60%,#fff6dc,#f3c77a 45%,#8a6e46 100%);box-shadow:0 0 80px #f3c77a88}
 .door .leaf{position:absolute;inset:0;border-radius:10px 10px 2px 2px;background:#243143;border:2px solid #536273;transform-origin:left;transition:transform 1.4s ease}
-.door .leaf:after{content:'';position:absolute;right:20px;top:140px;width:16px;height:16px;border-radius:50%;background:var(--gold)}
+.door .leaf:after{content:'';position:absolute;right:18px;top:125px;width:14px;height:14px;border-radius:50%;background:var(--gold)}
 .door.open .leaf{transform:rotateY(-78deg)}
-.stamp{position:absolute;top:20px;right:24px;border:4px solid var(--red);color:var(--red);font-weight:900;font-size:26px;letter-spacing:.15em;padding:4px 14px;border-radius:8px;transform:rotate(-12deg) scale(3);opacity:0;transition:all .45s cubic-bezier(.2,1.6,.4,1)}
+.stamp{position:absolute;top:18px;right:22px;border:4px solid var(--red);color:var(--red);font-weight:900;font-size:24px;letter-spacing:.15em;padding:4px 12px;border-radius:8px;transform:rotate(-12deg) scale(3);opacity:0;transition:all .45s cubic-bezier(.2,1.6,.4,1)}
 .stamp.hit{transform:rotate(-12deg) scale(1);opacity:.9}
 .compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
-.cmp{border-radius:12px;padding:16px;text-align:center}
-.cmp .big{font-family:ui-monospace,Consolas,monospace;font-size:44px;font-weight:800;line-height:1.2}
-.punch{font-size:clamp(24px,3vw,32px);font-weight:800;text-align:center;color:var(--gold);margin:18px 0 6px;line-height:1.5}
+.cmp{border-radius:12px;padding:14px;text-align:center}.cmp .big{font-family:ui-monospace,Consolas,monospace;font-size:40px;font-weight:800;line-height:1.2}
+.punch{font-size:clamp(22px,3vw,30px);font-weight:800;text-align:center;color:var(--gold);margin:16px 0 6px;line-height:1.5}
+.stars{font-size:30px;color:var(--gold);text-align:center;letter-spacing:4px}
 canvas.confetti{position:fixed;inset:0;pointer-events:none;z-index:40}
-.tpanel h3{margin-top:0}
-@media(max-width:850px){.grid{grid-template-columns:1fr}.places,.bag{grid-template-columns:repeat(2,1fr)}.timeline,.principles{grid-template-columns:repeat(2,1fr)}.facts,.compare{grid-template-columns:1fr}}
+@media(max-width:860px){.grid{grid-template-columns:1fr}.places,.testi{grid-template-columns:repeat(2,1fr)}.timeline{grid-template-columns:repeat(3,1fr)}.route{grid-template-columns:repeat(5,1fr)}.fixes{grid-template-columns:repeat(2,1fr)}.rules,.compare{grid-template-columns:1fr}.pos .fx{font-size:26px}}
+@media(max-width:560px){.testi{grid-template-columns:1fr}.route{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}.pos{padding:6px 3px;min-height:112px}.pos .pd{font-size:12px}.pos .pn{font-size:11px}}
 </style>
 </head>
 <body>
 <div class="wrap">
  <header>
-  <div><div class="tag">ARCHIVE / CASE 006</div><div class="small">生活失物調查局・機密任務</div></div>
+  <div><div class="tag">ARCHIVE / CASE 006・SOLO</div><div class="small">生活失物調查局・自主闖關版</div></div>
   <div class="clocks">
-   <div class="clockbox"><div class="small">劇情時間（07:40 公車到站）</div><div class="story" id="story">07:25</div></div>
-   <div class="clockbox"><div class="small">實際用時</div><div class="real" id="real">00:00</div></div>
-   <button class="tbtn" id="tBtn">⚙ 教師</button>
+   <div style="text-align:right"><div class="small">劇情時間（07:40 公車到站）</div><div class="story" id="story">07:25</div></div>
+   <div style="text-align:right"><div class="small">實際用時</div><div class="real" id="real">00:00</div></div>
   </div>
  </header>
  <div class="progress" id="progress"></div>
  <div class="stages" id="stages"></div>
  <div class="grid">
-  <main class="panel" id="game"></main>
-  <aside>
-   <div class="panel">
-    <h3 style="margin-top:0">已知線索</h3>
-    <div class="evidence" id="known"></div>
-    <h3>調查紀錄</h3>
-    <div class="log" id="log"></div>
-   </div>
-  </aside>
+  <main class="panel"><div id="game"></div>
+   <div class="hintrow" id="hintrow"><button class="btn" id="hintBtn">💡 調閱提示</button><div class="hintbox" id="hintBox"></div></div>
+  </main>
+  <aside><div class="panel">
+   <h3 style="margin-top:0">已知線索</h3>
+   <div class="board" id="known"></div>
+   <h3>證物板</h3>
+   <div class="board" id="board"></div>
+   <h3>調查紀錄</h3>
+   <div class="log" id="log"></div>
+  </div></aside>
  </div>
 </div>
-
-<div class="bottom"><div class="in">
- <button class="btn" id="hintBtn">💡 調閱提示</button>
- <div class="hintbox" id="hintBox"></div>
-</div></div>
-
-<div class="overlay" id="tOverlay"><div class="obox tpanel">
- <h3>教師面板</h3>
- <p class="small">建議 20–25 分鐘。投影全班一起推理，或讓各組用平板操作；每一關先「小組討論」，再派代表點選。</p>
- <div class="row" id="jump"></div>
- <div class="row"><button class="btn" id="ansBtn">顯示本關答案</button><button class="btn" id="resetBtn">全部重來</button><button class="btn primary" id="closeT">關閉</button></div>
- <div class="clue dim" id="ansBox" style="display:none"></div>
-</div></div>
-
 <div class="overlay" id="endOverlay"><div class="obox" id="endBox"></div></div>
 
 <script>
 (function(){
-const $=s=>document.querySelector(s);
-const STAGES=['任務簡報','第一輪搜尋','新線索','還原路徑','設計系統','結案'];
-const S={stage:0,mins:0,started:false,real:0,hints:0,hintIdx:0,searched:[],found:false,foundAt:null,log:[]};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const STAGES=['簡報','現場搜查','證詞比對','時間線','動線設計','習慣與反思','結案'];
 const START=7*60+25,BUS=7*60+40;
+const S={stage:0,mins:0,real:0,started:false,hints:0,hintIdx:0,wrong:0,searched:[],ev:new Set(),log:[],reflect:''};
 const FACTS=['① 昨天回家後曾經用鑰匙開門','② 昨天晚上整理過書包','③ 今天早上曾經拿出外套','④ 鑰匙不在平常的位置（玄關掛鉤）'];
+const EVID={
+ cam:{n:'門口監視器 18:02',t:'兩手提著便當袋和書包，開門後把鑰匙塞進<b>薄外套</b>右邊口袋。',key:1},
+ photo:{n:'作業照片 21:00',t:'傳給同學的作業照片裡，<b>薄外套</b>還掛在書桌椅背上。',key:1},
+ bag:{n:'書包整理清單',t:'課本、鉛筆盒、水壺、聯絡簿──沒有鑰匙。'},
+ thick:{n:'今天的厚外套',t:'早上 07:15 才從衣櫃拿出來，口袋只有面紙。'}
+};
 const PLACES=[
- {id:'hook',n:'玄關掛鉤',d:'鑰匙平常的家',cost:1,res:'空的。已知線索 ④ 早就說了──白白花掉 1 分鐘。'},
- {id:'bag',n:'書包',d:'昨晚整理過',cost:2,res:'沒有。但找到昨晚的整理清單：課本、鉛筆盒、水壺、聯絡簿──清單上沒有鑰匙。',clue:'書包清單：昨晚整理書包時，鑰匙不在書包裡。'},
- {id:'coat',n:'今天穿的厚外套',d:'今天早上拿出來的',cost:1,res:'口袋裡只有面紙。這件是今天早上才從衣櫃拿出來穿的。',clue:'厚外套：今天早上才拿出來，口袋裡沒有鑰匙。'},
- {id:'desk',n:'書桌與椅背',d:'昨晚在這裡整理書包',cost:2,res:'沒有。咦？昨天那件薄外套原本掛在椅背上，現在不見了。',clue:'椅背：昨天的薄外套不見了。'},
+ {id:'hook',n:'玄關掛鉤',d:'鑰匙平常的家',cost:1,res:'空的。線索 ④ 早就告訴你了──白白花掉 1 分鐘。'},
+ {id:'cam',n:'調閱門口監視器',d:'手機 App 就能看',cost:1,res:'畫面清楚拍到昨天 18:02 回家的樣子。',ev:'cam'},
+ {id:'bag',n:'書包',d:'昨晚整理過',cost:2,res:'沒有鑰匙，但找到昨晚的整理清單。',ev:'bag'},
+ {id:'desk',n:'書桌與椅背',d:'昨晚在這裡整理書包',cost:2,res:'椅背空空的。但桌上的手機裡，有一張昨晚 21:00 傳給同學的作業照片……',ev:'photo'},
+ {id:'thick',n:'今天穿的厚外套',d:'今天早上拿出來的',cost:1,res:'口袋裡只有面紙。',ev:'thick'},
  {id:'sofa',n:'客廳沙發縫',d:'東西常常掉進去',cost:3,res:'只找到遙控器和兩枚十元硬幣。'},
  {id:'table',n:'餐桌',d:'昨天在這裡吃晚餐',cost:2,res:'只有昨天的便當袋。'},
- {id:'closet',n:'衣櫃',d:'放衣服的地方',cost:3,res:'翻了好久，只有換季衣物。'},
  {id:'bath',n:'浴室',d:'洗澡前會掏口袋？',cost:2,res:'沒有。'},
- {id:'laundry',n:'洗衣籃',d:'髒衣服都在這',cost:2,res:'找到了！在昨天那件薄外套的右邊口袋裡！',found:true}
+ {id:'closet',n:'衣櫃',d:'放衣服的地方',cost:3,res:'只有換季衣物，和一個空掉的衣架（厚外套被拿走了）。'}
 ];
-const NEWCLUES=[
- {l:'證物 A｜門口監視器',t:'昨天 18:02：你兩手提著便當袋和書包，開門後，把鑰匙順手塞進<b>薄外套</b>的右邊口袋。'},
- {l:'證物 B｜天氣 App',t:'今天 14°C，比昨天低 8°C。所以早上你換穿了<b>厚外套</b>，昨天那件薄外套沒有穿出門。'},
- {l:'證物 C｜媽媽的訊息 07:05',t:'「早上我把家裡亂丟的<b>髒衣服</b>都收一收了喔！」'}
-];
-const EVENTS=[
- {c:'A',t:'早上覺得冷，換穿厚外套',k:4},
- {c:'B',t:'開門後，鑰匙順手塞進薄外套口袋',k:1},
- {c:'C',t:'媽媽把椅背上的薄外套收進洗衣籃',k:5},
- {c:'D',t:'薄外套掛在書桌椅背上',k:2},
- {c:'E',t:'晚上在書桌整理書包',k:3}
-];
-const DESIGN=[
- {c:'A',t:'在臥室放一個漂亮的鑰匙盒',ok:0,why:'臥室不在回家的動線上，進門後還要繞路，很快就會放棄。'},
- {c:'B',t:'門內側固定一個「只放鑰匙」的掛鉤',ok:1,p:0},
- {c:'C',t:'多打三把備份鑰匙，放在不同地方',ok:0,why:'這是治標：鑰匙越多，要記得的地方越多。'},
- {c:'D',t:'掛鉤旁設一個置物平台：進門先放下東西，手空了再掛鑰匙',ok:1,p:1},
- {c:'E',t:'把玄關清空，什麼都不放，看起來最整齊',ok:0,why:'看起來整齊，不代表好用。沒有位置，東西就只能跟著人到處跑。'},
- {c:'F',t:'鑰匙不進口袋：開門後直接掛上，不跟著外套移動',ok:1,p:2},
- {c:'G',t:'每天早上提早 10 分鐘起床找鑰匙',ok:0,why:'這是用時間去換混亂，問題還在。'},
- {c:'H',t:'全家約定「進門三件事」：鑰匙、鞋子、包包先歸位',ok:1,p:3}
-];
-const PRINCIPLES=['固定放置位置','依使用動線安排','減少不必要的移動','建立歸位習慣'];
 const HINTS={
- 1:['把每個地方對照已知線索：哪些地方「有線索指向」？哪些只是「感覺會在」？','線索 ④ 已經排除了一個地方；線索 ② 和 ③ 各指向兩個地方。'],
- 2:['把三個證物連起來：鑰匙跟著哪件衣服？那件衣服今天有被穿走嗎？','媽媽收的是「髒衣服」。收去哪裡？'],
- 3:['從「回家開門」開始。鑰匙一離開手，就跟著那件外套一起移動。','整理書包時外套還在椅背上；換穿厚外套之後，媽媽才收走薄外套。'],
- 4:['四個正確做法，剛好對應下面四個原則。','錯的選項有共同點：只求「看起來整齊」或「事後補救」，沒有改變東西的移動路線。']
-};
-const ANS={
- 1:'沒有標準答案。有依據的排序：書包（線索②）、書桌與椅背（線索②）、今天的厚外套（線索③）。掛鉤已被線索④排除。',
- 2:'洗衣籃。（鑰匙在薄外套口袋 → 今天沒穿薄外套 → 媽媽收走髒衣服 → 椅背上的外套不見了）',
- 3:'順序：B → D → E → A → C。鑰匙從 B 開始「離家出走」。',
- 4:'正確：B、D、F、H。密碼 BDFH。'
+ 1:['線索 ① 說鑰匙「昨天回家時」還在。有沒有什麼地方能看到你回家那一刻？','鑰匙似乎跟著某件衣服走了。那件衣服昨晚在哪裡？去你昨晚待最久的地方找找。'],
+ 2:['把每個證詞的「時間」和證物板對照：21:00 的照片、22:00 爸爸的話。','弟弟看到的，很可能是爸爸自己掛在玄關的外套。媽媽說她把收來的髒衣服放到哪裡？'],
+ 3:['先排有時間的：18:02、21:00、22:00、07:00、07:15。','還剩一件沒有時間的事：回家後外套先掛到哪？它一定在 18:02 和 21:00 之間。'],
+ 4:['先放「置物平台」：開門時兩手都滿，要先放下東西。','鑰匙掛鉤要在進門三步內、平台之後；鞋櫃要在走廊之前；外套架要在掛鉤之後，而且不在房間裡。'],
+ 5:['好習慣有兩個條件：全家都做得到、每天都會發生。','「再打一把」和「別人幫你收」都沒有改變東西的移動路線。']
 };
 
-/* ---------- helpers ---------- */
-function clockStr(m){const t=START+m;return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');}
-function addLog(t){S.log.unshift(`[${clockStr(S.mins)}] ${t}`);$('#log').innerHTML=S.log.map(x=>'<p>● '+x+'</p>').join('');}
+/* ---------- shell ---------- */
+function clk(m){const t=START+m;return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');}
+function log(t){S.log.unshift(`[${clk(S.mins)}] ${t}`);$('#log').innerHTML=S.log.map(x=>'<p>● '+x+'</p>').join('');}
 function shell(){
  $('#progress').innerHTML=STAGES.map((_,i)=>`<span class="${i<=S.stage?'on':''}"></span>`).join('');
  $('#stages').innerHTML=STAGES.map((s,i)=>`<span class="${i===S.stage?'now':''}">${s}</span>`).join('');
- const st=$('#story');st.textContent=clockStr(S.mins);st.classList.toggle('late',START+S.mins>BUS);
- $('#known').innerHTML=FACTS.map(f=>`<span>${f}</span>`).join('');
+ const st=$('#story');st.textContent=clk(S.mins);st.classList.toggle('late',START+S.mins>BUS);
+ $('#known').innerHTML=FACTS.map(f=>`<div class="ev got">${f}</div>`).join('');
+ $('#board').innerHTML=Object.entries(EVID).map(([k,e])=>S.ev.has(k)?`<div class="ev got"><b>${e.n}</b><br>${e.t}</div>`:`<div class="ev">？ 尚未取得的證物</div>`).join('');
+ $('#hintrow').style.display=HINTS[S.stage]?'flex':'none';
 }
-setInterval(()=>{if(S.started&&S.stage<5){S.real++;$('#real').textContent=String(Math.floor(S.real/60)).padStart(2,'0')+':'+String(S.real%60).padStart(2,'0');}},1000);
+setInterval(()=>{if(S.started&&S.stage<6){S.real++;$('#real').textContent=String(Math.floor(S.real/60)).padStart(2,'0')+':'+String(S.real%60).padStart(2,'0');}},1000);
 function go(n){S.stage=n;S.hintIdx=0;$('#hintBox').textContent='';shell();R[n]();window.scrollTo&&window.scrollTo({top:0,behavior:'smooth'});}
 function msg(t,ok){const m=$('#msg');m.className='msg'+(ok?' ok':'');m.innerHTML=t;}
-function spend(p){S.mins+=p.cost;S.searched.push(p.id);shell();}
-$('#hintBtn').onclick=()=>{const h=HINTS[S.stage];if(!h){$('#hintBox').textContent='這一頁不需要提示。';return;}
- if(S.hintIdx<h.length){$('#hintBox').textContent='提示 '+(S.hintIdx+1)+'｜'+h[S.hintIdx];S.hintIdx++;S.hints++;addLog('調閱第 '+S.stage+' 關提示');}
- else $('#hintBox').textContent='提示已用完，請老師打開教師面板。';};
+function miss(t,cost=1){S.wrong++;S.mins+=cost;shell();msg(t+`<span class="small">（繞遠路：劇情時間 +${cost} 分）</span>`);}
+function shake(b){b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');}
+$('#hintBtn').onclick=()=>{const h=HINTS[S.stage];if(!h)return;if(S.hintIdx<h.length){$('#hintBox').textContent='提示 '+(S.hintIdx+1)+'｜'+h[S.hintIdx];S.hintIdx++;S.hints++;log('調閱提示');}else $('#hintBox').textContent='提示已用完。再把證物板讀一次吧！';};
 
-/* ---------- 0 briefing ---------- */
+/* ---------- 0 brief ---------- */
 function r0(){
  $('#game').innerHTML=`<div class="case">MISSION BRIEFING / 00</div>
  <h1>消失的<br><span style="color:var(--gold)">鑰匙</span></h1>
- <p>現在是 <b style="color:var(--gold)">07:25</b>。公車 07:40 到站，你急著出門，卻找不到鑰匙。</p>
- <h3>你只知道四件事</h3>
- <div class="facts">${FACTS.map(f=>`<div class="fact">${f}</div>`).join('')}</div>
- <div class="clue" style="margin-top:16px">任務規則：每搜尋一個地方，都會花掉「劇情時間」。<br>亂找會錯過公車；<b>有依據的推理</b>，才能最快找到。</div>
- <div class="row"><button class="btn primary" id="go1">接受委託 → 開始調查</button></div>`;
- $('#go1').onclick=()=>{S.started=true;addLog('案件成立：鑰匙失蹤，距離公車 15 分鐘。');go(1);};
+ <p>現在是 <b style="color:var(--gold)">07:25</b>，公車 07:40 到站。你急著出門，卻找不到鑰匙。</p>
+ <div class="clue">你只知道右邊的四件事。<br>
+ • 每搜尋一個地方，會花掉<b>劇情時間</b>。<br>
+ • 推理錯誤＝繞遠路，也會花時間。<br>
+ • 結案時，會依劇情時間、錯誤次數和提示次數評等。</div>
+ <p class="small">建議一個人或兩人一組闖關，約 10 分鐘。慢慢讀證物，比亂點更快。</p>
+ <div class="row"><button class="btn primary" id="go">接受委託 → 開始調查</button></div>`;
+ $('#go').onclick=()=>{S.started=true;log('案件成立：鑰匙失蹤，距離公車 15 分鐘。');go(1);};
 }
 
-/* ---------- 1 first search ---------- */
+/* ---------- 1 search ---------- */
 function r1(){
- const picks=[];const why={};
- $('#game').innerHTML=`<div class="case">CHAPTER 01 / 第一輪搜尋策略</div>
- <h2>你會按照什麼順序尋找？為什麼？</h2>
- <p>小組討論後，依序點選<b>最先要找的 3 個地方</b>，並標出你們的依據。</p>
+ $('#game').innerHTML=`<div class="case">CHAPTER 01 / 現場搜查</div>
+ <h2>先找哪裡？每一步都要花時間。</h2>
+ <p>自由搜查。目標：找到<b>能說明鑰匙去向的兩個關鍵證物</b>。找齊才能進入下一關。</p>
  <div class="places" id="pl"></div>
- <div class="picklist" id="pk"></div>
- <div class="row"><button class="btn primary" id="doSearch" disabled>開始搜尋 →</button><button class="btn" id="clr">重選</button></div>
- <div id="res"></div><div class="msg" id="msg"></div>`;
+ <div id="res"></div>
+ <div class="row"><button class="btn primary" id="nx" disabled>證物齊了 → 前往證詞比對</button></div>
+ <div class="msg" id="msg"></div>`;
  function draw(){
-  $('#pl').innerHTML=PLACES.map(p=>{const r=picks.indexOf(p.id);return `<button class="place ${r>=0?'picked':''}" data-id="${p.id}"><b>${p.n}</b><span class="small">${p.d}</span><br><span class="cost">⏱ 搜尋要 ${p.cost} 分鐘</span>${r>=0?`<span class="rank">${r+1}</span>`:''}</button>`;}).join('');
-  $('#pk').innerHTML=picks.map((id,i)=>{const p=PLACES.find(x=>x.id===id);return `<div class="pick"><span class="n">${i+1}</span><b style="min-width:150px">${p.n}</b><span class="small">依據：</span>${['①','②','③','④','直覺'].map(t=>`<button class="chip ${why[id]===t?'on':''}" data-id="${id}" data-t="${t}">${t}</button>`).join('')}</div>`;}).join('');
-  $('#doSearch').disabled=picks.length<3;
-  document.querySelectorAll('.place').forEach(b=>b.onclick=()=>{const id=b.dataset.id,i=picks.indexOf(id);if(i>=0){picks.splice(i,1);delete why[id];}else if(picks.length<3)picks.push(id);draw();});
-  document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{why[c.dataset.id]=c.dataset.t;draw();});
+  $('#pl').innerHTML=PLACES.map(p=>{const d=S.searched.includes(p.id);return `<button class="place ${d?'done':''}" data-id="${p.id}" ${d?'disabled':''}><b>${p.n}</b><span class="small">${p.d}</span><br><span class="cost">⏱ ${p.cost} 分鐘${d?'・已搜尋':''}</span></button>`;}).join('');
+  $$('#pl .place').forEach(b=>b.onclick=()=>search(b.dataset.id));
+  const ok=S.ev.has('cam')&&S.ev.has('photo');$('#nx').disabled=!ok;
+  if(ok)msg('✓ 兩個關鍵證物都到手了：鑰匙在<b>薄外套</b>裡，而薄外套昨晚 21:00 還在椅背上。',true);
  }
- $('#clr').onclick=()=>{picks.length=0;for(const k in why)delete why[k];draw();};
- $('#doSearch').onclick=()=>{
-  $('#pl').style.pointerEvents='none';$('#doSearch').disabled=true;$('#clr').disabled=true;
-  document.querySelectorAll('.chip').forEach(c=>c.disabled=true);
-  let i=0;
-  (function step(){
-   if(i>=picks.length||S.found){summary();return;}
-   const p=PLACES.find(x=>x.id===picks[i]);spend(p);
-   $('#res').insertAdjacentHTML('beforeend',`<div class="result ${p.found?'found':''}"><b>搜尋 ${i+1}｜${p.n}</b>（${why[p.id]?'依據 '+why[p.id]:'沒有標依據'}・花 ${p.cost} 分）<br>${p.res}</div>`);
-   addLog(`搜尋${p.n}：${p.found?'找到鑰匙！':'沒有'}`);
-   if(p.found){S.found=true;S.foundAt=1;}
-   i++;setTimeout(step,900);
-  })();
-  function summary(){
-   const based=picks.filter(id=>why[id]&&why[id]!=='直覺'&&why[id]!=='④').length;
-   const fb=picks.includes('hook')?'⚠ 你們搜尋了玄關掛鉤──線索 ④ 早就排除了它。':'';
-   const note=S.found
-    ?'🎯 第一輪就找到了！是推理還是運氣？請說出你們的依據，再繼續還原它是怎麼「跑」到那裡的。'
-    :`還沒找到。${based} 個地方有線索支持。${fb}<br>別急，調查局剛剛送來了<b>新證物</b>……`;
-   $('#res').insertAdjacentHTML('beforeend',`<div class="clue new">${note}</div><div class="row"><button class="btn primary" id="nx">${S.found?'前往：還原路徑 →':'調閱新證物 →'}</button></div>`);
-   $('#nx').onclick=()=>go(S.found?3:2);
-  }
- };
+ function search(id){
+  const p=PLACES.find(x=>x.id===id);S.searched.push(id);S.mins+=p.cost;
+  if(p.ev)S.ev.add(p.ev);shell();
+  $('#res').insertAdjacentHTML('afterbegin',`<div class="result"><b>${p.n}</b>（${p.cost} 分）<br>${p.res}${p.ev?`<br><span style="color:var(--blue)">➜ 取得證物：${EVID[p.ev].n}</span>`:''}</div>`);
+  log(`搜尋${p.n}`);draw();
+ }
+ $('#nx').onclick=()=>go(2);
  draw();
 }
 
-/* ---------- 2 new clues ---------- */
+/* ---------- 2 testimony ---------- */
+const TESTI=[
+ {id:'mom',who:'👩 媽媽',t:'「我 07:00 起床，把椅背上、沙發上的髒衣服都收進洗衣籃了。」'},
+ {id:'bro',who:'👦 弟弟',t:'「我 21:30 經過玄關，看到哥哥的薄外套掛在掛鉤上。」'},
+ {id:'dad',who:'👨 爸爸',t:'「我 22:00 出門倒垃圾，玄關掛鉤上只有我自己的外套和鑰匙。」'}
+];
 function r2(){
- const opened=new Set();
- const gotClues=PLACES.filter(p=>p.clue&&S.searched.includes(p.id)).map(p=>p.clue);
- $('#game').innerHTML=`<div class="case">CHAPTER 02 / 新證物・調整策略</div>
- <h2>新線索出現了，你們的搜尋策略要改嗎？</h2>
- ${gotClues.length?`<h3>第一輪搜尋得到的線索</h3>${gotClues.map(c=>`<div class="clue dim">${c}</div>`).join('')}`:''}
- <h3>點開三個證物袋</h3>
- <div class="bag" id="bag">${NEWCLUES.map((c,i)=>`<button class="evbag" data-i="${i}"><div class="lbl">${c.l}</div><div class="small" style="margin-top:8px">🔒 點擊開啟</div></button>`).join('')}</div>
- <div id="step2" style="display:none">
-  <h3>把證物連起來：下一個，你只能再找<b>一個</b>地方。</h3>
-  <div class="places" id="pl2"></div>
- </div>
- <div id="res"></div><div class="msg" id="msg"></div>`;
- document.querySelectorAll('.evbag').forEach(b=>b.onclick=()=>{
-  const i=+b.dataset.i;if(opened.has(i))return;opened.add(i);
-  b.classList.add('open');b.innerHTML=`<div class="lbl">${NEWCLUES[i].l}</div><div style="margin-top:6px">${NEWCLUES[i].t}</div>`;
-  addLog('開啟'+NEWCLUES[i].l);
-  if(opened.size===3){$('#step2').style.display='block';draw2();}
+ let step=1;
+ $('#game').innerHTML=`<div class="case">CHAPTER 02 / 證詞比對</div>
+ <h2>家人的說法，有一個和證據對不上。</h2>
+ <p>把三個證詞和右邊的證物板對照。</p>
+ <div class="testi" id="ts">${TESTI.map(x=>`<button class="tcard" data-id="${x.id}"><span class="who">${x.who}</span>${x.t}</button>`).join('')}</div>
+ <h3 id="q">Q1｜哪一個證詞<b>不可靠</b>？點選它。</h3>
+ <div id="q2"></div>
+ <div class="msg" id="msg"></div>`;
+ $$('#ts .tcard').forEach(b=>b.onclick=()=>{
+  if(step!==1)return;
+  if(b.dataset.id==='bro'){
+   step=2;b.classList.add('wrong');log('發現矛盾：弟弟的證詞');
+   msg('✓ 對！21:00 的照片裡，薄外套在椅背上；22:00 爸爸說掛鉤上只有他自己的外套。弟弟看到的，應該是<b>爸爸的外套</b>。',true);
+   ask2();
+  }else{shake(b);miss('這個證詞和證物沒有衝突。找找看：誰說的「地點」和照片、時間對不上？');}
  });
- function draw2(){
-  $('#pl2').innerHTML=PLACES.map(p=>{const done=S.searched.includes(p.id);return `<button class="place ${done?'done':''}" data-id="${p.id}" ${done?'disabled':''}><b>${p.n}</b><span class="cost">⏱ ${p.cost} 分鐘${done?'・已找過':''}</span></button>`;}).join('');
-  document.querySelectorAll('#pl2 .place').forEach(b=>b.onclick=()=>{
-   const p=PLACES.find(x=>x.id===b.dataset.id);spend(p);addLog(`搜尋${p.n}：${p.found?'找到鑰匙！':'沒有'}`);
-   if(p.found){
-    S.found=true;S.foundAt=2;$('#pl2').style.pointerEvents='none';
-    $('#res').innerHTML=`<div class="result found"><b>${p.n}</b><br>${p.res}</div><div class="clue new">推理成功：鑰匙在薄外套 → 今天沒穿薄外套 → 媽媽收走髒衣服 → 椅背上的外套不見了。<br>接下來，還原鑰匙是怎麼一步步「離家出走」的。</div><div class="row"><button class="btn primary" id="nx">還原路徑 →</button></div>`;
+ function ask2(){
+  const opts=[['A','玄關掛鉤'],['B','書桌椅背'],['C','衣櫃'],['D','洗衣籃'],['E','陽台曬衣架']];
+  $('#q2').innerHTML=`<h3>Q2｜所以，那件薄外套<b>現在</b>在哪裡？</h3><div class="row">${opts.map(([c,n])=>`<button class="btn" data-c="${c}">${c}｜${n}</button>`).join('')}</div>`;
+  $$('#q2 .btn').forEach(b=>b.onclick=()=>{
+   if(b.dataset.c==='D'){
+    S.mins+=2;shell();log('搜尋洗衣籃：找到鑰匙！');
+    $$('#q2 .btn').forEach(x=>x.disabled=true);
+    $('#q2').insertAdjacentHTML('beforeend',`<div class="result found"><b>搜尋洗衣籃（2 分）</b><br>找到了！鑰匙就在薄外套的右邊口袋裡。</div><div class="row"><button class="btn primary" id="nx">還原完整時間線 →</button></div>`);
+    msg('');
     $('#nx').onclick=()=>go(3);
-   }else{
-    $('#res').innerHTML=`<div class="result"><b>${p.n}</b>（花 ${p.cost} 分）<br>${p.res}</div>`;
-    msg('再把三個證物串起來想一次：鑰匙跟著誰？那個「誰」現在在哪裡？');draw2();
-   }
+   }else if(b.dataset.c==='B'){shake(b);miss('那是昨晚的位置。今天早上 07:00，有人動過它。');}
+   else{shake(b);miss('再讀一次媽媽的證詞：她把椅背上的髒衣服收去哪裡？',2);}
   });
  }
 }
 
-/* ---------- 3 reconstruct ---------- */
+/* ---------- 3 timeline ---------- */
+const EVENTS=[
+ {c:'A',t:'媽媽收走椅背上的髒衣服',k:5},
+ {c:'B',t:'開門，把鑰匙塞進薄外套口袋',k:1},
+ {c:'C',t:'覺得冷，從衣櫃拿出厚外套',k:6},
+ {c:'D',t:'薄外套掛上書桌椅背',k:2},
+ {c:'E',t:'在書桌整理書包、拍作業照',k:3},
+ {c:'F',t:'爸爸倒垃圾，掛鉤上沒有你的鑰匙',k:4}
+];
 function r3(){
  let next=1;
  $('#game').innerHTML=`<div class="case">CHAPTER 03 / 逆向還原</div>
  <h2>鑰匙是怎麼「離家出走」的？</h2>
- <p>依時間先後，點選五張事件卡（A–E），還原鑰匙的移動路徑。</p>
- <div class="timeline" id="tl">${[1,2,3,4,5].map(i=>`<div class="tl" data-i="${i}"><div class="n">STEP ${i}</div><div class="tx"></div></div>`).join('')}</div>
+ <p>事件卡上沒有寫時間。請根據證物和證詞，依先後點選六張卡。</p>
+ <div class="timeline" id="tl">${[1,2,3,4,5,6].map(i=>`<div class="tl" data-i="${i}"><div class="n">STEP ${i}</div><div class="tx"></div></div>`).join('')}</div>
  <div class="cards" id="ev">${EVENTS.map((e,i)=>`<button class="card" data-i="${i}"><span class="code">${e.c}</span>${e.t}</button>`).join('')}</div>
  <div id="root"></div><div class="msg" id="msg"></div>`;
- document.querySelectorAll('#ev .card').forEach(b=>b.onclick=()=>{
+ $$('#ev .card').forEach(b=>b.onclick=()=>{
   const e=EVENTS[+b.dataset.i];
-  if(e.k!==next){b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');msg('順序不對。想想：鑰匙一離開手，就跟著哪一件衣服移動？');return;}
-  const t=document.querySelector(`.tl[data-i="${next}"]`);t.classList.add('fill');t.querySelector('.tx').innerHTML=`<b style="color:var(--gold)">${e.c}</b>｜${e.t}`;
+  if(e.k!==next){shake(b);miss('順序不對。對照證物板上的時間再想想。');return;}
+  const t=$(`.tl[data-i="${next}"]`);t.classList.add('fill');t.querySelector('.tx').innerHTML=`<b style="color:var(--gold)">${e.c}</b>｜${e.t}`;
   b.classList.add('used');msg('');next++;
-  if(next>5){addLog('還原路徑：B → D → E → A → C');rootQ();}
+  if(next>6){log('時間線還原：B D E F A C');root();}
  });
- function rootQ(){
-  $('#root').innerHTML=`<div class="clue new" style="margin-top:16px">路徑還原：<b>B → D → E → A → C</b><br>現在，找出<b>問題的起點</b>：鑰匙是從哪一步開始「離開它的家」？</div>
-  <div class="row">${['B','D','A','C'].map(c=>`<button class="btn" data-c="${c}">${c}｜${EVENTS.find(e=>e.c===c).t}</button>`).join('')}</div>`;
-  document.querySelectorAll('#root .btn').forEach(b=>b.onclick=()=>{
+ function root(){
+  $('#root').innerHTML=`<div class="clue new" style="margin-top:14px">時間線：<b>B → D → E → F → A → C</b><br>Q｜問題的<b>起點</b>是哪一張？鑰匙從哪一刻開始離開它的家？</div><div class="row">${['B','D','A','C'].map(c=>`<button class="btn" data-c="${c}">${c}</button>`).join('')}</div>`;
+  $$('#root .btn').forEach(b=>b.onclick=()=>{
    if(b.dataset.c==='B'){
-    msg('✓ 就是 B！雙手都提著東西，沒辦法掛鑰匙，只好塞進口袋。從這一刻起，鑰匙就跟著外套到處跑：椅背 → 洗衣籃。<br>問題不在「不夠整齊」，而在<b>回家的動線上，鑰匙沒有一個「手空得出來」的家</b>。',true);
-    $('#root').insertAdjacentHTML('beforeend','<div class="row"><button class="btn primary" id="nx">設計一個不會讓鑰匙消失的系統 →</button></div>');
-    $('#nx').onclick=()=>go(4);
-   }else msg('再往前找。後面的事件，都是因為更早的那一步才發生的。');
+    msg('✓ 就是 B。開門時兩手都提著東西，掛鉤用不了，鑰匙只好塞進口袋，從此跟著外套到處跑。<br>問題不是「不夠整齊」，而是<b>回家的動線上，鑰匙沒有一個「手空得出來」的家</b>。',true);
+    $$('#root .btn').forEach(x=>x.disabled=true);
+    $('#root').insertAdjacentHTML('beforeend','<div class="row"><button class="btn primary" id="nx">重新設計回家動線 →</button></div>');$('#nx').onclick=()=>go(4);
+   }else{shake(b);miss('再往前找。後面的事，都是因為更早那一步才發生的。');}
   });
  }
 }
 
-/* ---------- 4 design system ---------- */
+/* ---------- 4 route design ---------- */
+const POS=[{n:'位置 1',d:'門一打開'},{n:'位置 2',d:'進門一步'},{n:'位置 3',d:'進門兩步'},{n:'位置 4',d:'走廊'},{n:'位置 5',d:'房間門口'}];
+const FIX=[{id:'shelf',e:'🧺',n:'置物平台'},{id:'hook',e:'🔑',n:'鑰匙掛鉤'},{id:'shoe',e:'👟',n:'鞋櫃'},{id:'coat',e:'🧥',n:'外套架'}];
+const RULES=[
+ {t:'① 開門時兩手都滿：要先能「放下東西」，手才空得出來掛鑰匙。',f:p=>p.shelf!=null&&p.hook!=null&&p.shelf<p.hook},
+ {t:'② 鑰匙要在「進門三步內」歸位，越晚越容易被帶進房間。',f:p=>p.hook!=null&&p.hook<=2},
+ {t:'③ 鞋子要在走進走廊之前脫好。',f:p=>p.shoe!=null&&p.shoe<=2},
+ {t:'④ 先掛鑰匙、再脫外套；外套架不能放在房間門口。',f:p=>p.coat!=null&&p.hook!=null&&p.coat>p.hook&&p.coat<=3}
+];
 function r4(){
- const on=new Set();
- $('#game').innerHTML=`<div class="case">FINAL CHAPTER / 系統設計</div>
- <h2>怎麼設計一個「不容易讓鑰匙消失」的收納系統？</h2>
- <p>從 8 個方案中，選出 <b>4 個</b>真正能解決問題的。選對的方案，會點亮下方的收納原則。</p>
- <div class="cards" id="ds">${DESIGN.map((d,i)=>`<button class="card" data-i="${i}"><span class="code">${d.c}</span>${d.t}</button>`).join('')}</div>
- <div class="principles" id="pr">${PRINCIPLES.map((p,i)=>`<div class="pr" data-i="${i}"><b>${p}</b><span class="small">尚未點亮</span></div>`).join('')}</div>
- <div class="lockcode" id="lc"></div>
- <div class="row" style="justify-content:center"><button class="btn primary" id="unlock" disabled>🔓 輸入密碼，解鎖大門</button></div>
+ const place={};let cur=null,passed=false;
+ $('#game').innerHTML=`<div class="case">CHAPTER 04 / 動線設計</div>
+ <h2>重新設計玄關：讓鑰匙「回家就有家」</h2>
+ <p>先點一個設施，再點它要放的位置。四個設施、五個位置，<b>同時滿足四條規則</b>才能通過。</p>
+ <div class="rules" id="rules"></div>
+ <div class="route" id="route"></div>
+ <div class="arrowline"></div>
+ <div class="small" style="text-align:center;margin-top:-6px">回家的方向 →</div>
+ <h3>設施</h3>
+ <div class="fixes" id="fixes"></div>
+ <div class="row"><button class="btn primary" id="sim">▶ 模擬回家</button><button class="btn" id="clr">清空重放</button></div>
+ <div class="narr" id="narr">按「模擬回家」，看看鑰匙這次會不會走丟。</div>
  <div class="msg" id="msg"></div>`;
  function draw(){
-  const code=[...on].map(i=>DESIGN[i].c).sort();
-  $('#lc').innerHTML=[0,1,2,3].map(i=>`<div>${code[i]||''}</div>`).join('');
-  DESIGN.forEach((d,i)=>{if(d.ok){const el=document.querySelector(`.pr[data-i="${d.p}"]`);const lit=on.has(i);el.classList.toggle('lit',lit);el.querySelector('.small').textContent=lit?'✓ 已點亮（'+d.c+'）':'尚未點亮';}});
-  $('#unlock').disabled=on.size!==4;
+  $('#rules').innerHTML=RULES.map(r=>`<div class="rule">${r.t}</div>`).join('');
+  $('#route').innerHTML=POS.map((p,i)=>{const f=FIX.find(x=>place[x.id]===i);return `<button class="pos ${f?'has':''}" data-i="${i}"><div class="pn">${p.n}</div><div class="pd">${p.d}</div><div class="fx">${f?f.e:''}</div><div class="fxn">${f?f.n:''}</div></button>`;}).join('');
+  $('#fixes').innerHTML=FIX.map(f=>`<button class="fix ${cur===f.id?'sel':''} ${place[f.id]!=null?'placed':''}" data-id="${f.id}"><span class="e">${f.e}</span>${f.n}</button>`).join('');
+  $$('.fix').forEach(b=>b.onclick=()=>{cur=b.dataset.id;draw();});
+  $$('.pos').forEach(b=>b.onclick=()=>{
+   if(!cur){msg('先點選下方的一個設施。');return;}
+   const i=+b.dataset.i;for(const k in place)if(place[k]===i)delete place[k];
+   place[cur]=i;cur=null;msg('');draw();
+  });
  }
- document.querySelectorAll('#ds .card').forEach(b=>b.onclick=()=>{
-  const i=+b.dataset.i,d=DESIGN[i];
-  if(on.has(i)){on.delete(i);b.classList.remove('on');msg('');draw();return;}
-  if(!d.ok){b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');msg(`✗ ${d.c}：${d.why}`);addLog('排除方案 '+d.c);return;}
-  if(on.size>=4)return;
-  on.add(i);b.classList.add('on');msg(`✓ ${d.c}：對應「${PRINCIPLES[d.p]}」`,true);draw();
- });
- $('#unlock').onclick=()=>{addLog('輸入密碼 BDFH，大門解鎖');go(5);};
+ $('#clr').onclick=()=>{for(const k in place)delete place[k];cur=null;draw();$('#narr').textContent='按「模擬回家」，看看鑰匙這次會不會走丟。';};
+ $('#sim').onclick=()=>{
+  if(passed)return;
+  if(Object.keys(place).length<4){msg('四個設施都要放好，才能模擬。');return;}
+  const res=RULES.map(r=>r.f(place));
+  $$('#rules .rule').forEach((el,i)=>{el.classList.toggle('ok',res[i]);el.classList.toggle('bad',!res[i]);});
+  const lines=[];let hands='滿',key='手上';
+  const order=POS.map((_,i)=>FIX.find(f=>place[f.id]===i)).map((f,i)=>({f,i}));
+  lines.push('🚪 開門，兩手提著便當袋和書包，鑰匙在手上。');
+  order.forEach(({f,i})=>{
+   if(!f){lines.push(`· ${POS[i].d}：沒有設施，繼續走。`);return;}
+   if(f.id==='shelf'){hands='空';lines.push(`🧺 ${POS[i].d}：放下袋子，手空了。`);}
+   if(f.id==='hook'){if(key!=='手上'){lines.push(`🔑 ${POS[i].d}：鑰匙早就塞進口袋了……掛鉤空著。`);}
+     else if(hands==='空'){key='掛鉤';lines.push(`🔑 ${POS[i].d}：鑰匙掛上掛鉤 ✓`);}
+     else{key='口袋';lines.push(`🔑 ${POS[i].d}：手還滿著，掛不上去，鑰匙只好塞進外套口袋 ✗`);}}
+   if(f.id==='shoe')lines.push(`👟 ${POS[i].d}：脫鞋，鞋子放進鞋櫃。`);
+   if(f.id==='coat'){if(key==='手上'){key='口袋';lines.push(`🧥 ${POS[i].d}：脫外套前鑰匙還沒放好，順手塞進口袋 ✗`);}else lines.push(`🧥 ${POS[i].d}：脫下外套，口袋是空的 ✓`);}
+  });
+  const all=res.every(Boolean);
+  lines.push(all?'\n🎉 鑰匙留在掛鉤上，明天出門 5 秒就拿到！':`\n⚠ 鑰匙最後在：${key==='掛鉤'?'掛鉤（但還有規則沒滿足）':'外套口袋──明天又要找了'}`);
+  $$('.pos').forEach(p=>p.classList.add('walk'));setTimeout(()=>$$('.pos').forEach(p=>p.classList.remove('walk')),900);
+  $('#narr').textContent=lines.join('\n');
+  if(all){passed=true;log('動線設計通過');msg('✓ 四條規則都滿足了：<b>固定位置、依動線安排、減少不必要的移動</b>。',true);
+   $('#narr').insertAdjacentHTML('afterend','<div class="row"><button class="btn primary" id="nx">最後一塊拼圖 →</button></div>');$('#nx').onclick=()=>go(5);}
+  else{S.wrong++;msg('有規則還沒滿足（紅色），調整位置再模擬一次。');}
+ };
  draw();
 }
 
-/* ---------- 5 ending + surprise ---------- */
+/* ---------- 5 habit + reflection ---------- */
+const HAB=[
+ {c:'A',t:'全家約定「進門三件事」：放下東西、掛鑰匙、脫鞋',ok:1},
+ {c:'B',t:'鑰匙不見了，就再打一把備份',ok:0,why:'東西變多了，問題沒有消失。'},
+ {c:'C',t:'睡前看一眼掛鉤：鑰匙在家嗎？',ok:1},
+ {c:'D',t:'交給媽媽，每天幫大家收好',ok:0,why:'只有一個人知道東西在哪，系統就很脆弱。'},
+ {c:'E',t:'在掛鉤上掛滿漂亮吊飾，提醒自己',ok:0,why:'掛鉤被佔滿，鑰匙反而沒有位置。'}
+];
+function r5(){
+ const on=new Set();let habOk=false;
+ $('#game').innerHTML=`<div class="case">CHAPTER 05 / 習慣與反思</div>
+ <h2>好的動線，還需要好的習慣來維持。</h2>
+ <p>選出<b>兩個</b>能讓系統維持下去的習慣。</p>
+ <div class="cards" id="hb">${HAB.map((h,i)=>`<button class="card" data-i="${i}"><span class="code">${h.c}</span>${h.t}</button>`).join('')}</div>
+ <div class="msg" id="msg"></div>
+ <div id="ref" style="display:none">
+  <h3>最後：換成你自己的生活</h3>
+  <p>寫下一樣<b>你自己最常找不到的東西</b>，以及你要幫它安排的家：放在生活動線的哪裡？</p>
+  <textarea id="tx" placeholder="例如：我的眼鏡。睡前放在床頭固定的小盤子，起床伸手就拿得到。"></textarea>
+  <div class="row"><button class="btn primary" id="unlock" disabled>🔓 解鎖大門・結案</button><span class="small" id="cnt">至少寫 10 個字</span></div>
+ </div>`;
+ $$('#hb .card').forEach(b=>b.onclick=()=>{
+  if(habOk)return;const i=+b.dataset.i,h=HAB[i];
+  if(!h.ok){shake(b);miss(`✗ ${h.c}：${h.why}`);return;}
+  on.add(i);b.classList.add('on');
+  if(on.size===2){habOk=true;msg('✓ 系統的最後一塊：<b>建立歸位習慣</b>。',true);log('選出維持習慣 A、C');$('#ref').style.display='block';}
+  else msg('✓ 很好，還有一個。',true);
+ });
+ setTimeout(()=>{const tx=$('#tx');if(!tx)return;tx.oninput=()=>{const n=tx.value.trim().length;$('#cnt').textContent=n>=10?'✓ 可以結案了':`至少寫 10 個字（目前 ${n}）`;$('#unlock').disabled=n<10;};
+ $('#unlock').onclick=()=>{S.reflect=tx.value.trim();log('提交反思，大門解鎖');go(6);};},0);
+}
+
+/* ---------- 6 end ---------- */
 function confetti(){
  const c=document.createElement('canvas');c.className='confetti';document.body.appendChild(c);
  const x=c.getContext&&c.getContext('2d');if(!x){c.remove();return;}
@@ -382,56 +394,42 @@ function confetti(){
  const P=Array.from({length:200},()=>({x:Math.random()*W,y:-20-Math.random()*H*.6,w:6+Math.random()*8,h:10+Math.random()*10,vx:-2+Math.random()*4,vy:2+Math.random()*4,r:Math.random()*6,vr:-.2+Math.random()*.4,c:cols[Math.floor(Math.random()*cols.length)]}));
  let t=0;(function f(){t++;x.clearRect(0,0,W,H);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.04;p.r+=p.vr;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.w/2,-p.h/2,p.w,p.h);x.restore();});if(t<280)requestAnimationFrame(f);else c.remove();})();
 }
-function r5(){
- const late=START+S.mins>BUS;const n=S.searched.length;
- $('#game').innerHTML=`<div class="case">CASE CLOSED / 結案</div><h2 style="color:var(--gold)">大門已解鎖。</h2><p>結案報告已送達，請查看。</p><div class="row"><button class="btn primary" id="again">再看一次結案報告</button></div>`;
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function r6(){
+ const late=START+S.mins>BUS;
+ const score=(late?0:2)+(S.wrong<=2?1:0)+(S.hints<=2?1:0);const stars=score>=4?3:score>=2?2:1;
+ $('#game').innerHTML=`<div class="case">CASE CLOSED / 結案</div><h2 style="color:var(--gold)">大門已解鎖。</h2><div class="row"><button class="btn primary" id="again">再看一次結案報告</button></div>`;
  $('#again').onclick=show;
  function show(){
-  $('#endBox').innerHTML=`
-  <div class="stamp" id="stamp">CASE CLOSED</div>
+  $('#endBox').innerHTML=`<div class="stamp" id="stamp">CASE CLOSED</div>
   <div class="case">CASE 006 / 結案報告</div>
-  <h2 style="margin-top:6px">${late?'公車開走了……但你們找到了真相。':'趕上公車了！鑰匙回到你手上。'}</h2>
+  <h2 style="margin-top:6px">${late?'公車開走了……但你找到了真相。':'趕上公車了！鑰匙回到你手上。'}</h2>
   <div class="door" id="door"><div class="light"></div><div class="leaf"></div></div>
   <div id="rep" style="display:none">
+   <div class="stars">${'★'.repeat(stars)}${'☆'.repeat(3-stars)}</div>
    <div class="compare">
-    <div class="cmp" style="background:#2a1f22;border:1px solid #6e3d38">
-     <div class="small">這次找鑰匙</div>
-     <div class="big" style="color:var(--red)">${S.mins} 分鐘</div>
-     <div class="small">找了 ${n} 個地方・劇情時間 ${clockStr(S.mins)}</div>
-    </div>
-    <div class="cmp" style="background:#1c3029;border:1px solid #3e6b52">
-     <div class="small">如果鑰匙有固定的家</div>
-     <div class="big" style="color:var(--green)">5 秒</div>
-     <div class="small">進門就掛、出門就拿</div>
-    </div>
+    <div class="cmp" style="background:#2a1f22;border:1px solid #6e3d38"><div class="small">這次找鑰匙</div><div class="big" style="color:var(--red)">${S.mins} 分鐘</div><div class="small">搜尋 ${S.searched.length+1} 處・繞遠路 ${S.wrong} 次・提示 ${S.hints} 次</div></div>
+    <div class="cmp" style="background:#1c3029;border:1px solid #3e6b52"><div class="small">如果鑰匙有固定的家</div><div class="big" style="color:var(--green)">5 秒</div><div class="small">進門就掛、出門就拿</div></div>
    </div>
    <div class="punch">收納的目的，不是讓東西看起來整齊，<br>而是讓生活更有效率。</div>
-   <div class="clue">調查員紀錄：實際用時 ${String(Math.floor(S.real/60)).padStart(2,'0')}:${String(S.real%60).padStart(2,'0')}・使用提示 ${S.hints} 次・${S.foundAt===1?'第一輪就找到鑰匙':'看過新證物後找到鑰匙'}</div>
-   <h3>回到教室：小組討論</h3>
-   <div class="clue dim">1. 第一輪，你們依據什麼決定搜尋順序？誰的理由最有說服力？<br>2. 新證物出現後，你們的策略怎麼改變？<br>3. 你自己最常找不到什麼東西？想一想：從進家門到出門，它應該住在哪裡，才不會再消失？</div>
-   <div class="row" style="justify-content:center"><button class="btn primary" id="closeEnd">關閉報告</button></div>
+   <h3>你的收納承諾</h3>
+   <div class="clue">${esc(S.reflect)}</div>
+   <h3>你剛剛用到的收納邏輯</h3>
+   <div class="clue dim">🔎 從線索推回「最後使用的情境」 → 🧭 找出問題起點：動線上沒有家 → 📍 固定位置＋依動線安排＋減少移動 → 🔁 建立歸位習慣</div>
+   <p class="small" style="text-align:center">實際用時 ${String(Math.floor(S.real/60)).padStart(2,'0')}:${String(S.real%60).padStart(2,'0')}・可截圖留存</p>
+   <div class="row" style="justify-content:center"><button class="btn primary" id="closeEnd">關閉報告</button><button class="btn" id="restart">重新挑戰</button></div>
   </div>`;
   $('#endOverlay').classList.add('show');
-  setTimeout(()=>{$('#door').classList.add('open');},300);
-  setTimeout(()=>{confetti();},1200);
+  setTimeout(()=>$('#door').classList.add('open'),300);
+  setTimeout(confetti,1200);
   setTimeout(()=>{$('#stamp').classList.add('hit');$('#rep').style.display='block';},1700);
   $('#closeEnd').onclick=()=>$('#endOverlay').classList.remove('show');
+  $('#restart').onclick=()=>{Object.assign(S,{stage:0,mins:0,real:0,started:false,hints:0,hintIdx:0,wrong:0,searched:[],ev:new Set(),log:[],reflect:''});$('#real').textContent='00:00';$('#log').innerHTML='';$('#endOverlay').classList.remove('show');log('新案件已建立。');go(0);};
  }
  show();
 }
-
-const R=[r0,r1,r2,r3,r4,r5];
-
-/* ---------- teacher ---------- */
-$('#tBtn').onclick=()=>{$('#ansBox').style.display='none';$('#tOverlay').classList.add('show');};
-$('#closeT').onclick=()=>$('#tOverlay').classList.remove('show');
-$('#jump').innerHTML='<span class="small">跳到：</span>'+STAGES.map((s,i)=>`<button class="btn" data-j="${i}">${s}</button>`).join('');
-document.querySelectorAll('#jump .btn').forEach(b=>b.onclick=()=>{const j=+b.dataset.j;S.started=true;if(j>=3)S.found=true;if(j===2&&!S.searched.length)S.searched=['bag','desk','coat'];$('#tOverlay').classList.remove('show');$('#endOverlay').classList.remove('show');go(j);});
-$('#ansBtn').onclick=()=>{$('#ansBox').textContent=ANS[S.stage]||'這一頁沒有標準答案。';$('#ansBox').style.display='block';};
-$('#resetBtn').onclick=()=>{Object.assign(S,{stage:0,mins:0,started:false,real:0,hints:0,hintIdx:0,searched:[],found:false,foundAt:null,log:[]});$('#real').textContent='00:00';$('#log').innerHTML='';$('#tOverlay').classList.remove('show');$('#endOverlay').classList.remove('show');go(0);};
-
-addLog('案件已建立，等待調查員加入。');
-go(0);
+const R=[r0,r1,r2,r3,r4,r5,r6];
+log('案件已建立，等待調查員加入。');go(0);
 })();
 </script>
 </body>
